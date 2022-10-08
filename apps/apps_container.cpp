@@ -450,17 +450,67 @@ void AppsContainer::redrawWindow(bool force) {
 
 void AppsContainer::activateExamMode(GlobalPreferences::ExamMode examMode) {
   assert(examMode != GlobalPreferences::ExamMode::Off && examMode != GlobalPreferences::ExamMode::Unknown);
-  reset();
-  Ion::LED::setColor(KDColorRed);
-  /* The Dutch exam mode LED is supposed to be orange but we can only make
-   * blink "pure" colors: with RGB leds on or off (as the PWM is used for
-   * blinking). The closest "pure" color is Yellow. Moreover, Orange LED is
-   * already used when the battery is charging. Using yellow, we can assert
-   * that the yellow LED only means that Dutch exam mode is on and avoid
-   * confusing states when the battery is charging and states when the Dutch
-   * exam mode is on. */
-  // Ion::LED::setColor(examMode == GlobalPreferences::ExamMode::Dutch ? KDColorYellow : KDColorRed);
-  Ion::LED::setBlinking(1000, 0.1f);
+
+  if (examMode == GlobalPreferences::ExamMode::NoSym)
+  {
+    int RGBdelay = 300;
+    while (true)
+    {
+      Ion::LED::setColor(KDColorWhite);
+      Ion::Timing::msleep(RGBdelay);
+      Ion::LED::setColor(KDColorYellow);
+      Ion::Timing::msleep(RGBdelay);
+      Ion::LED::setColor(KDColorOrange);
+      Ion::Timing::msleep(RGBdelay);
+      Ion::LED::setColor(KDColorRed);
+      Ion::Timing::msleep(RGBdelay);
+      Ion::LED::setColor(KDColorPurple);
+      Ion::Timing::msleep(RGBdelay);
+      Ion::LED::setColor(KDColorBlue);
+      Ion::Timing::msleep(RGBdelay);
+      Ion::LED::setColor(KDColorGreen);
+      Ion::Timing::msleep(RGBdelay);
+
+      uint64_t scan = Ion::Keyboard::scan();
+
+      if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::One)) {
+        RGBdelay = 700;
+      } else if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::Two)) {
+        RGBdelay = 600;
+      } else if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::Three)) {
+        RGBdelay = 500;
+      } else if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::Four)) {
+        RGBdelay = 400;
+      } else if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::Five)) {
+        RGBdelay = 300;
+      } else if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::Six)) {
+        RGBdelay = 200;
+      } else if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::Seven)) {
+        RGBdelay = 150;
+      } else if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::Eight)) {
+        RGBdelay = 100;
+      } else if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::Nine)) {
+        RGBdelay = 50;
+      }
+
+      if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::Ans))
+      {
+        Ion::LED::setColor(KDColorPurple);
+        break;
+      }
+    }
+  }
+  else if (examMode == GlobalPreferences::ExamMode::NoSymNoText)
+  {
+    reset();
+    Ion::LED::setColor(KDColorRed);
+    Ion::LED::setBlinking(1000, 0.1f);
+  }
+  else
+  {
+    Ion::LED::setColor(KDColorRed);
+    Ion::LED::setBlinking(1000, 0.1f);
+  }
 }
 
 void AppsContainer::examDeactivatingPopUpIsDismissed() {

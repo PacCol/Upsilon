@@ -13,6 +13,16 @@ ExamPopUpController::ExamPopUpController(ExamPopUpControllerDelegate * delegate)
       [](void * context, void * sender) {
         ExamPopUpController * controller = (ExamPopUpController *)context;
         GlobalPreferences::ExamMode mode = controller->targetExamMode();
+        // CUSTOM CODE
+        //GlobalPreferences * excontroller = (GlobalPreferences *)context;
+        uint8_t currentMode = Ion::ExamMode::FetchExamMode();
+        assert(currentMode >= 0 && currentMode < 5);
+        GlobalPreferences::ExamMode currentModeReadable = (GlobalPreferences::ExamMode)currentMode;
+
+        if (currentModeReadable != GlobalPreferences::ExamMode::Off) {
+          mode = GlobalPreferences::ExamMode::Off;
+        }
+        // END CUSTOM CODE
         assert(mode != GlobalPreferences::ExamMode::Unknown);
         GlobalPreferences::sharedGlobalPreferences()->setExamMode(mode);
         AppsContainer * container = AppsContainer::sharedAppsContainer();
