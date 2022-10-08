@@ -440,6 +440,7 @@ const ToolboxMessageTree IonModuleChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandBatteryIscharging, I18n::Message::PythonBatteryIscharging),
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandSetBrightness, I18n::Message::PythonSetBrightness),
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandGetBrightness, I18n::Message::PythonGetBrightness),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandSetLedColor, I18n::Message::PythonSetLedColor),
   // This is a special case, because it is handled separately, so the sub-tree is unused.
   ToolboxMessageTree::Node(I18n::Message::IonSelector, IonKeyModuleChildren),
   ToolboxMessageTree::Node(I18n::Message::IonKeyList, IonKeyModuleChildren)

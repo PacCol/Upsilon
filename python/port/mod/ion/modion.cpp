@@ -124,3 +124,41 @@ mp_obj_t modion_get_brightness(){
   micropython_port_interrupt_if_needed();
   return mp_obj_new_int((int)brightness);
 }
+
+// ADDED TO THE MOD
+mp_obj_t modion_set_led_color(mp_obj_t led_color_mp){
+  int led_color = mp_obj_get_int(led_color_mp);
+  /*
+  KDColorBlack
+  KDColorWhite
+  KDColorRed
+  KDColorGreen
+  KDColorBlue
+  KDColorYellow
+  KDColorOrange
+  KDColorPurple
+  */
+  if (led_color < 0 || led_color > 7) {
+    mp_raise_ValueError("Led color must be between 0 and 7");
+  } else {
+    if (led_color == 0) {
+      Ion::LED::setColor(KDColorBlack);
+    } else if (led_color == 1) {
+      Ion::LED::setColor(KDColorWhite);
+    } else if (led_color == 2) {
+      Ion::LED::setColor(KDColorRed);
+    } else if (led_color == 3) {
+      Ion::LED::setColor(KDColorGreen);
+    } else if (led_color == 4) {
+      Ion::LED::setColor(KDColorBlue);
+    } else if (led_color == 5) {
+      Ion::LED::setColor(KDColorYellow);
+    } else if (led_color == 6) {
+      Ion::LED::setColor(KDColorOrange);
+    } else if (led_color == 7) {
+      Ion::LED::setColor(KDColorPurple);
+    }
+    micropython_port_interrupt_if_needed();
+    return mp_const_none;
+  }
+}
