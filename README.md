@@ -1,3 +1,5 @@
+# For educational purposes only!
+
 <p align="center"><img src="https://github.com/Laporte12974/UpsilonDesign/blob/89a15953ae128aef8aa7d066dcaaf8d5c70f02a5/UPSILogo.png" /></p>
 
 <p align="center">
